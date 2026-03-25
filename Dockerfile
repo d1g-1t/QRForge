@@ -18,3 +18,12 @@ ENV PYTHONPATH=/app/src
 EXPOSE 8000
 
 CMD ["uvicorn", "qrcode_service.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# ── test stage ────────────────────────────────────────────
+FROM base AS test
+
+RUN pip install --no-cache-dir ".[dev]"
+COPY tests/ tests/
+
+CMD ["pytest", "--tb=short", "-q"]
+
