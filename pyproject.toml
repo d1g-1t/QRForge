@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "qrcode-service"
+version = "1.0.0"
+description = "QR + barcode generation with custom logo, scan tracking, and analytics"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "segno>=1.6",
+    "qrcode[pil]>=8.0",
+    "pillow>=11.0",
+    "python-barcode>=0.15",
+    "cairosvg>=2.7",
+    "sqlalchemy[asyncio]>=2.0",
+    "asyncpg",
+    "alembic",
+    "redis[hiredis]",
+    "arq",
+    "httpx",
+    "user-agents",
+    "uvicorn[standard]",
+    "python-multipart",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio",
+    "pytest-cov",
+    "httpx",
+    "anyio[trio]",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/qrcode_service"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
